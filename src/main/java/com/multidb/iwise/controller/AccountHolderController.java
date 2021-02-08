@@ -16,7 +16,7 @@ public class AccountHolderController {
     private AccountHolderService accountHolderService;
 
     @RequestMapping(value = "createresource", method = RequestMethod.POST)
-    public String createResource(@RequestBody AccountHolderModel accountHolderModel, AccountModel accountModel){
-        return accountHolderService.createResource(accountHolderModel, accountModel);
+    public String createResource(@RequestBody AccountHolderModel accountHolderModel){
+        return accountHolderService.createResource(accountHolderModel);
     }
 }

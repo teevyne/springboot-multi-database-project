@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
@@ -19,12 +20,10 @@ import java.util.Date;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private ObjectId id;
 
     private String accountNumber;
-
-//    private String referenceId;
 
     private String transactionType;
 

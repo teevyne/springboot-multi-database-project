@@ -13,8 +13,6 @@ public class TransactionModel {
 
     private String accountNumber;
 
-//    private String referenceId;
-
     private String transactionType;
 
     private Date transactionDate;

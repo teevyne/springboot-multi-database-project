@@ -1,10 +1,11 @@
 package com.multidb.iwise.service;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.multidb.iwise.model.document.Account;
 import com.multidb.iwise.model.document.Transaction;
 import com.multidb.iwise.model.entity.AccountHolder;
 import com.multidb.iwise.model.objectmodels.AccountHolderModel;
-import com.multidb.iwise.model.objectmodels.AccountModel;
+//import com.multidb.iwise.model.objectmodels.AccountModel;
 import com.multidb.iwise.repository.AccountHolderRepository;
 import com.multidb.iwise.repository.AccountRepository;
 import com.multidb.iwise.repository.TransactionRepository;
@@ -28,46 +29,80 @@ public class AccountHolderService {
     private TransactionRepository transactionRepository;
 
     @Transactional
-    public String createResource(AccountHolderModel accountHolderModel, AccountModel accountModel) {
-        if (!accountHolderRepository.existsByEmailAddress(accountHolderModel.getEmailAddress())) {
-            AccountHolder accountHolder = new AccountHolder();
-            BeanUtils.copyProperties(accountHolderModel, accountHolder);
+    public String createResource(AccountHolderModel accountHolderModel) {
+        AccountHolder accountHolder = new AccountHolder();
+        BeanUtils.copyProperties(accountHolderModel, accountHolder);
+        accountHolderRepository.save(accountHolder);
 
-            try {
-                accountHolderRepository.save(accountHolder);
-                accountHolderModel.getAccounts().stream().forEach(a -> {
-                    Account account = new Account();
-                    a.setLastName(accountHolder.getLastName());
+//        accountHolderModel.getAccounts().stream().forEach(a -> {
+//
+//        });
 
-                    log.info(accountHolderModel.getAccounts().toString());
+        accountHolderModel.getAccounts().forEach(b -> {
+            Account account = new Account();
 
-                    BeanUtils.copyProperties(a, account);
+            b.getTransactions().stream().forEach(t -> {
+                Transaction transaction = new Transaction();
+                BeanUtils.copyProperties(t, transaction);
+                transactionRepository.save(transaction);
 
-                    try {
-                        accountRepository.save(account);
-                        accountModel.getTransactions().stream().forEach(t -> {
-                            Transaction transaction = new Transaction();
-                            t.setAccountNumber(account.getAccountNumber());
-                            BeanUtils.copyProperties(t, transaction);
+                account.getTransactions().add(transaction);
+                BeanUtils.copyProperties(b, account);
+                accountRepository.save(account);
 
-                            try {
-                                transactionRepository.save(transaction);
-                            } catch (Exception e) {
-                                throw e;
-                            }
-                        });
-                    } catch (Exception e) {
-                        throw e;
-                    }
-                });
-            } catch (Exception e) {
-                throw e;
-            }
-            return "Resource successfully added";
-        } else {
-            return "Resource duplicate";
-        }
+            });
+
+//            Account account = new Account();
+//            log.info("This is just before we saved the account");
+//            log.info(account.toString());
+
+        });
+        return "All done";
     }
+
+//    @Transactional
+//    public String createResource(AccountHolderModel accountHolderModel) {
+//        if (!accountHolderRepository.existsByEmailAddress(accountHolderModel.getEmailAddress())) {
+//            AccountHolder accountHolder = new AccountHolder();
+//            BeanUtils.copyProperties(accountHolderModel, accountHolder);
+//
+//            try {
+//                accountHolderRepository.save(accountHolder);
+//                accountHolderModel.getAccounts().stream().forEach(a -> {
+//                    Account account = new Account();
+//                    a.setLastName(accountHolder.getLastName());
+//
+//                    log.info(accountHolderModel.getAccounts().toString());
+//
+//                    BeanUtils.copyProperties(a, account);
+//
+//                    try {
+//                        accountRepository.save(account);
+//                        accountHolderModel.getAccounts().stream().forEach(t -> {
+//                            t.getTransactions().stream().forEach(b -> {
+//                                Transaction transaction = new Transaction();
+//                                b.setAccountNumber(account.getAccountNumber());
+//                                BeanUtils.copyProperties(b, transaction);
+//
+//                                try {
+//                                    transactionRepository.save(transaction);
+//                                } catch (Exception e) {
+//                                    throw e;
+//                                }
+//                            });
+//                        });
+//                    } catch (Exception e) {
+//                        throw e;
+//                    }
+//                });
+//            } catch (Exception e) {
+//                throw e;
+//            }
+//            return "Resource successfully added";
+//        } else {
+//            return "Resource duplicate";
+//        }
+//    }
 
 //    public List<AccountHolderModel> readResource() {
 //        List<AccountHolderModel> holders = new ArrayList<>();

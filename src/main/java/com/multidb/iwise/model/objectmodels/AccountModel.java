@@ -30,6 +30,6 @@ public class AccountModel {
 
     private String bankInstitution;
 
-    @DBRef
+//    @DBRef
     private List<Transaction> transactions;
 }
