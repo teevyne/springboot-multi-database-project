@@ -43,6 +43,6 @@ public class Account {
 
     private String bankInstitution;
 
-    @DBRef
+//    @DBRef
     private List<Transaction> transactions = new ArrayList<>();
 }

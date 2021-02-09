@@ -12,16 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Document(collection = "transactions")
+//@Document(collection = "transactions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Transaction {
 
-    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    private ObjectId id;
+//    @Id
+//    private ObjectId id;
 
     private String accountNumber;
 
