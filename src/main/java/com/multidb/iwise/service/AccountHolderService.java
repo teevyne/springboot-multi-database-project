@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 public class AccountHolderService {
@@ -34,27 +37,19 @@ public class AccountHolderService {
         BeanUtils.copyProperties(accountHolderModel, accountHolder);
         accountHolderRepository.save(accountHolder);
 
-//        accountHolderModel.getAccounts().stream().forEach(a -> {
-//
-//        });
-
         accountHolderModel.getAccounts().forEach(b -> {
             Account account = new Account();
+            List<Transaction> transactions = new ArrayList<>();
 
             b.getTransactions().stream().forEach(t -> {
                 Transaction transaction = new Transaction();
                 BeanUtils.copyProperties(t, transaction);
-                transactionRepository.save(transaction);
-
-                account.getTransactions().add(transaction);
-                BeanUtils.copyProperties(b, account);
-                accountRepository.save(account);
-
+                transactions.add(transaction);
             });
 
-//            Account account = new Account();
-//            log.info("This is just before we saved the account");
-//            log.info(account.toString());
+            BeanUtils.copyProperties(b, account);
+            account.getTransactions().addAll(transactions);
+            accountRepository.save(account);
 
         });
         return "All done";
