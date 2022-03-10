@@ -17,4 +17,6 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 //    public boolean existsByBankVN(String email);
 
     public void deleteAccountByEmail(String email);
+
+    List<Account> findByBankVN(String accountNumber);
 }

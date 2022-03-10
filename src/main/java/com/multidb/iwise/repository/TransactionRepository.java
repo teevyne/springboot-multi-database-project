@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
 
-//    public List<Transaction> findTransactionsByEmail(String email);
+    List<Transaction> findTransactionsByAccountNumber(String accountNumber);
 }
 
