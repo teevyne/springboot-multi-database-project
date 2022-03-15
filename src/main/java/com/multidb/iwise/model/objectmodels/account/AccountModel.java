@@ -1,6 +1,6 @@
 //package com.multidb.iwise.model.objectmodels;
 //
-//import com.multidb.iwise.model.document.Transaction;
+//import com.multidb.iwise.model.document.bank.Transaction;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
 //import lombok.ToString;
@@ -34,13 +34,13 @@
 //    private List<Transaction> transactions;
 //}
 
-package com.multidb.iwise.model.objectmodels;
+package com.multidb.iwise.model.objectmodels.account;
 
-import com.multidb.iwise.model.document.Transaction;
+import com.multidb.iwise.model.document.bank.Transaction;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import java.util.List;
 
 @NoArgsConstructor
@@ -66,6 +66,5 @@ public class AccountModel {
 
     private String bankInstitution;
 
-    //    @DBRef
     private List<Transaction> transactions;
 }

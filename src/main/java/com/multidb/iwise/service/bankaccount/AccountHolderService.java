@@ -1,13 +1,15 @@
-package com.multidb.iwise.service;
+package com.multidb.iwise.service.bankaccount;
 
-import com.multidb.iwise.model.document.Account;
-import com.multidb.iwise.model.document.Transaction;
+import com.multidb.iwise.model.document.bank.Account;
+import com.multidb.iwise.model.document.bank.Transaction;
+import com.multidb.iwise.model.document.insurance.InsuranceAccount;
 import com.multidb.iwise.model.entity.AccountHolder;
 import com.multidb.iwise.model.entity.AccountResponse;
 import com.multidb.iwise.model.objectmodels.AccountHolderModel;
 import com.multidb.iwise.repository.AccountHolderRepository;
-import com.multidb.iwise.repository.AccountRepository;
-import com.multidb.iwise.repository.TransactionRepository;
+import com.multidb.iwise.repository.bankaccount.AccountRepository;
+import com.multidb.iwise.repository.bankaccount.TransactionRepository;
+import com.multidb.iwise.repository.insurance.InsuranceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class AccountHolderService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private InsuranceRepository insuranceRepository;
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -54,7 +59,7 @@ public class AccountHolderService {
                             transactionList.add(transaction);
                             try {
                                 transactionRepository.save(transaction);
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 throw e;
                             }
 
@@ -152,6 +157,8 @@ public class AccountHolderService {
 
     public Object getTotalBalance(String bvn) {
 
+//        AccountHolder accountHolder = accountHolderRepository.findByBvn(bvn);
+
         Map<String, Object> accountMapObject = new HashMap<>();
         List<Object> accountListII = new ArrayList<>();
 
@@ -176,6 +183,41 @@ public class AccountHolderService {
         accountMapObject.put("Message", "Total balance fetched for user " + bvn);
         accountMapObject.put("totalBalance", totalBalance);
         accountMapObject.put("banks", accountListII);
+
+        return accountMapObject;
+    }
+
+    public Object getAllData(String bvn) {
+
+        Map<String, Object> accountMapObject = new HashMap<>();
+
+        List<Object> accountListII = new ArrayList<>();
+        List<Object> insuranceAccountListII = new ArrayList<>();
+
+        List<Account> accountList = accountRepository.findByBankVN(bvn);
+        List<InsuranceAccount> insuranceAccountList = insuranceRepository.findByBvn(bvn);
+
+        for (Account account : accountList) {
+
+            AccountResponse accountResponse = new AccountResponse();
+
+            accountResponse.setBankName(account.getBankInstitution());
+            accountResponse.setAccountBalance(account.getAccountBalance());
+            accountResponse.setAccountType(account.getAccountType());
+
+            accountListII.add(accountResponse);
+        }
+
+        accountMapObject.put("banking", accountList);
+        accountMapObject.put("accept", "Total balance fetched for user " + bvn);
+        accountMapObject.put("insurance", insuranceAccountListII);
+        accountMapObject.put("pension", insuranceAccountListII);
+        accountMapObject.put("investments", insuranceAccountListII);
+        accountMapObject.put("mortgage", insuranceAccountListII);
+        accountMapObject.put("liabilities", insuranceAccountListII);
+        accountMapObject.put("medical", insuranceAccountListII);
+        accountMapObject.put("education", insuranceAccountListII);
+
 
         return accountMapObject;
     }

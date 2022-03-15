@@ -2,15 +2,15 @@
 //
 //package com.multidb.iwise.service;
 //
-//import com.multidb.iwise.model.document.Account;
-//import com.multidb.iwise.model.document.Transaction;
+//import com.multidb.iwise.model.document.bank.Account;
+//import com.multidb.iwise.model.document.bank.Transaction;
 //import com.multidb.iwise.model.entity.AccountHolder;
 //import com.multidb.iwise.model.objectmodels.AccountHolderModel;
-//import com.multidb.iwise.model.objectmodels.AccountModel;
-//import com.multidb.iwise.model.objectmodels.TransactionModel;
+//import com.multidb.iwise.model.objectmodels.account.AccountModel;
+//import com.multidb.iwise.model.objectmodels.account.TransactionModel;
 //import com.multidb.iwise.repository.AccountHolderRepository;
-//import com.multidb.iwise.repository.AccountRepository;
-//import com.multidb.iwise.repository.TransactionRepository;
+//import com.multidb.iwise.repository.bankaccount.AccountRepository;
+//import com.multidb.iwise.repository.bankaccount.TransactionRepository;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.BeanUtils;
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -11,7 +11,9 @@ public interface AccountHolderRepository extends JpaRepository<AccountHolder, Lo
 
     public boolean existsByEmailAddress(String email);
 
-    public List<AccountHolder> findByEmailAddress(String email);
+//    public List<AccountHolder> findByEmailAddress(String email);
+
+    AccountHolder findByEmailAddress(String email);
 
     public void deleteByEmailAddress(String email);
 }

@@ -1,4 +1,4 @@
-package com.multidb.iwise.model.document;
+package com.multidb.iwise.model.document.insurance;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,20 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Document(collection = "transactions")
+@Document(collection = "insurance-transactions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Transaction {
+public class InsuranceTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    private String accountNumber;
-
-//    private String referenceId;
+    private String insuranceAccountNumber;
 
     private String transactionType;
 

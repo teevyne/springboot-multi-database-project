@@ -1,6 +1,6 @@
-package com.multidb.iwise.repository;
+package com.multidb.iwise.repository.bankaccount;
 
-import com.multidb.iwise.model.document.Account;
+import com.multidb.iwise.model.document.bank.Account;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

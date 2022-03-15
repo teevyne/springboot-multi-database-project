@@ -1,4 +1,4 @@
-package com.multidb.iwise.model.objectmodels;
+package com.multidb.iwise.model.objectmodels.account;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

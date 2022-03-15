@@ -1,12 +1,10 @@
 package com.multidb.iwise.controller;
 
-import com.multidb.iwise.model.document.Account;
-import com.multidb.iwise.model.document.Transaction;
+import com.multidb.iwise.model.document.bank.Account;
 import com.multidb.iwise.model.objectmodels.AccountHolderModel;
-import com.multidb.iwise.model.objectmodels.AccountModel;
+import com.multidb.iwise.model.objectmodels.account.AccountModel;
 import com.multidb.iwise.model.request.AccountRequest;
-import com.multidb.iwise.repository.AccountRepository;
-import com.multidb.iwise.service.AccountHolderService;
+import com.multidb.iwise.service.bankaccount.AccountHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +37,10 @@ public class AccountHolderController {
     @GetMapping("get-total-balance")
     public Object getAllTotalBalance(@RequestBody AccountRequest accountRequest) {
         return accountHolderService.getTotalBalance(accountRequest.getBvn());
+    }
+
+    @GetMapping("get-data")
+    public Object getCustomerData(@RequestBody AccountRequest accountRequest) {
+        return accountHolderService.getAllData(accountRequest.getBvn());
     }
 }

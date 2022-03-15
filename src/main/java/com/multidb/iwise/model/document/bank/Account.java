@@ -43,7 +43,7 @@
 //}
 
 
-package com.multidb.iwise.model.document;
+package com.multidb.iwise.model.document.bank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
